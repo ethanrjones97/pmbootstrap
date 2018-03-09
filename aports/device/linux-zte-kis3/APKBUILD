@@ -1,4 +1,4 @@
-# Kernel config based on: arch/arm/configs/(CHANGEME!)
+# Kernel config based on: arch/arm/configs/msm8610-zte_defconfig
 
 pkgname="linux-zte-kis3"
 pkgver=3.4.0
@@ -10,7 +10,7 @@ _flavor="zte-kis3"
 url="https://kernel.org"
 license="GPL2"
 options="!strip !check !tracedeps"
-makedepends="perl sed installkernel bash gmp-dev bc linux-headers elfutils-dev dtbtool"
+makedepends="perl sed installkernel bash gmp-dev bc linux-headers elfutils-dev dtbtool xz"
 HOSTCC="${CC:-gcc}"
 HOSTCC="${HOSTCC#${CROSS_COMPILE}}"
 
