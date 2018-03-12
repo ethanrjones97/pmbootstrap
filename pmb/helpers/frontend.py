@@ -147,12 +147,26 @@ def checksum(args):
 
 
 def chroot(args):
+    # Suffix
     suffix = _parse_suffix(args)
+    if (args.user and suffix != "native" and
+            not suffix.startswith("buildroot_")):
+        raise RuntimeError("--user is only supported for native or"
+                           " buildroot_* chroots.")
+
+    # apk: check minimum version, install packages
     pmb.chroot.apk.check_min_version(args, suffix)
     if args.add:
         pmb.chroot.apk.install(args, args.add.split(","), suffix)
-    logging.info("(" + suffix + ") % " + " ".join(args.command))
-    pmb.chroot.root(args, args.command, suffix, log=False)
+
+    # Run the command as user/root
+    if args.user:
+        logging.info("(" + suffix + ") % su pmos -c '" +
+                     " ".join(args.command) + "'")
+        pmb.chroot.user(args, args.command, suffix, log=False)
+    else:
+        logging.info("(" + suffix + ") % " + " ".join(args.command))
+        pmb.chroot.root(args, args.command, suffix, log=False)
 
 
 def config(args):
@@ -324,9 +338,10 @@ def log_distccd(args):
 
 
 def zap(args):
-    pmb.chroot.zap(args, dry=args.dry, packages=args.packages, http=args.http,
-                   mismatch_bins=args.mismatch_bins, old_bins=args.old_bins,
-                   distfiles=args.distfiles)
+    pmb.chroot.zap(args, dry=args.dry, http=args.http,
+                   distfiles=args.distfiles, pkgs_local=args.pkgs_local,
+                   pkgs_local_mismatch=args.pkgs_local_mismatch,
+                   pkgs_online_mismatch=args.pkgs_online_mismatch)
 
     # Don't write the "Done" message
     pmb.helpers.logging.disable()
