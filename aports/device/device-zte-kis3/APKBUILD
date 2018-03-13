@@ -9,7 +9,7 @@ arch="noarch"
 options="!check"
 depends="postmarketos-base linux-zte-kis3 mkbootimg mesa-dri-swrast"
 makedepends="devicepkg-dev"
-source="deviceinfo"
+source="deviceinfo initfs-hook.sh"
 
 build() {
 	devicepkg_build $startdir $pkgname
@@ -17,6 +17,10 @@ build() {
 
 package() {
 	devicepkg_package $startdir $pkgname
+
+	install -Dm644 "$srcdir"/initfs-hook.sh \
+		"$pkgdir"/etc/postmarketos-mkinitfs/hooks/00-${pkgname}.sh
 }
 
-sha512sums="6b580466a3dd04c56335b8207d42ab9c0155d751a3a7c6a161f236f2c5e89eb60312d89a1304a3d799d16ab18d352ab7ad32b8d2ff83ebb678229edac507606b  deviceinfo"
+sha512sums="b8308cc7b6d961288efd767967fce9e1f6ff891ce8a3cd3b8888b09e50b1f19195e89f6b166ac892f9d9a640437846f740d4449e1bc3c9436654400aac82a92e  deviceinfo
+0c30c758d2cb01d0e433f7e1f3713d5bd1b051f6e813217cd48de0d9ea0e9e6d086a25341018c620e05c829cfcb96387b4039b874ac1c4f8c97e55571536a8e1  initfs-hook.sh"
