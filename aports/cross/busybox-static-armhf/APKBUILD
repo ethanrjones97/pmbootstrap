@@ -2,8 +2,8 @@
 # Generator: pmbootstrap aportgen busybox-static-armhf
 
 pkgname=busybox-static-armhf
-pkgver=1.28.1
-pkgrel=0
+pkgver=1.28.2
+pkgrel=3
 
 _arch="armhf"
 _mirror="http://dl-cdn.alpinelinux.org/alpine/"
@@ -26,4 +26,4 @@ package() {
     rm .PKGINFO .SIGN.*
 }
 
-sha512sums="0b5a22ee4fcf3c4f13629d089943d52edb3abee0cf9cf263f7dc052f67964cd428f7985c57fd3d53560e7f5c1e14acfad50417791cb1c6c4ac8ac270de30cb70  busybox-static-1.28.1-r0-armhf.apk"
+sha512sums="5eeb8c2b22af2d5bc0cecb3dc625dc53b0699dbf6a7dbbc1ff6d4eaaa11cb7bbe9734fab1eebac90a1a7715b695385e4052f31763ce1ca245e6064a7b1750463  busybox-static-1.28.2-r3-armhf.apk"
